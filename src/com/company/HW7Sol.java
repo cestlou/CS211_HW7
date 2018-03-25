@@ -21,74 +21,50 @@ class HW7Sol {
         System.out.println("-----------------");
 
         // TODO: stack or queue as a parameter here???
-        HW7Sol.DFS(root);
+        HW7Sol.DFS(s);
 
         // BFS
         System.out.println("-----------------");
         System.out.println("BFS");
         System.out.println("-----------------");
         // TODO: stack or queue as a parameter here???
-        HW7Sol.BFS(root);
+        HW7Sol.BFS(q);
     }
 
-    // DONE SORTA: implement DFS
-    public static void DFS(NewTreeNode node) {
-        //DFS uses Stack data structure,
-        ArrayList<NewTreeNode> visited = new ArrayList<>();
-        Stack<NewTreeNode> s = new Stack<>();
-        s.push(node);
-        visited.add(node);
-        System.out.println(node.value);
-        while(!s.isEmpty())
-        {
-            NewTreeNode n = s.peek();
-            NewTreeNode child = null;
-            if (visited.indexOf(n.right) == -1) {
-                child = n.right;
-            }
-            if (visited.indexOf(n.left) == -1) {
-                child = n.left;
-            }
-            if (child != null)
-            {
-                System.out.println(n.value);
-                visited.add(child);
-                s.push(child);
-            }
-            else
-            {
-                s.pop();
-            }
+    // DONE: implement DFS
+    public static void DFS(Stack<NewTreeNode<Integer>> stack) {
+        if (stack.size() == 0) {
+            return;
         }
+        NewTreeNode<Integer> visited = stack.pop();
+        System.out.println(visited.value);
+        if (visited.right != null) {
+            stack.push(visited.right);
+        }
+        if (visited.left != null) {
+            stack.push(visited.left);
+        }
+        HW7Sol.DFS(stack);
+
+
     }
 
     // DONE: implement BFS
-    public static void BFS(NewTreeNode node) {
-        ArrayList<NewTreeNode> visited = new ArrayList<NewTreeNode>();
-        Queue<NewTreeNode> queue = new LinkedList<NewTreeNode>();
-        queue.add(node);
-        visited.add(node);
-        System.out.println(node.value);
-        while(!queue.isEmpty()) {
-            NewTreeNode cur = queue.peek();
-            NewTreeNode child = null;
-            if (visited.indexOf(cur.right) == -1) {
-                child = cur.right;
-            }
-            if (visited.indexOf(cur.left) == -1) {
-                child = cur.left;
-            }
-            if (child != null) {
-                System.out.println(child.value);
-                visited.add(child);
-                queue.add(child);
-            } else {
-                queue.poll();
-            }
+    public static void BFS(Queue<NewTreeNode<Integer>> queue) {
+        if (queue.size() == 0) {
+            return;
         }
+        NewTreeNode<Integer> visited = (NewTreeNode<Integer>) queue.remove();
+        System.out.println(visited.value);
+        if (visited.right != null) {
+            queue.add(visited.right);
+        }
+        if (visited.left != null) {
+            queue.add(visited.left);
+        }
+        HW7Sol.BFS(queue);
     }
 }
-
 
 //These should return:
 //
